@@ -18,7 +18,7 @@ module.exports = {
     output: {
         path: __dirname+"/public",//абсолютный путь к директории
         filename: '[name].v_'+ver+'.js',
-        publicPath:'../../s/dist/public/',
+        publicPath:__dirname+'/dist/public/',
         library:"[name]"
     },
     devtool: NODE_ENV == 'develop' ? 'source-map' : false ,  //используется для дебага чтоб показывал как бы все исходники
