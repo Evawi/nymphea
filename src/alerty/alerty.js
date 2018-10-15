@@ -1,7 +1,6 @@
 'use strict';
 
-var alertify =  require('../../../node_modules/alertifyjs/build/alertify.js');
-require("../../../node_modules/alertifyjs/build/css/alertify.css");
+import Alert       from './usedDependencyAlert';
 
 //возможные props, props - всегда объект или undef
 //onlyDev - только для дева
@@ -9,7 +8,8 @@ require("../../../node_modules/alertifyjs/build/css/alertify.css");
 //needAlert - выводить попап
 class AlertYClass{
     constructor() {
-        const PREFIX = "AlertY   HOTTABYCH";
+        const PROJECT = "NIMPHEA CORE"
+        const PREFIX = "AlertY   "+PROJECT;
 
         this.MessageName = {
             "error":   PREFIX + "-Error   ",
@@ -29,7 +29,7 @@ class AlertYClass{
             if (isDEVELOP)console.log("%c"+this.MessageName.error+" : "+message, 'color: #BC263D; font-weight: bold;');
         }
         if(props && props.needAlert){
-            alertify.error(message);
+            Alert.error(message);
             console.log("%c"+this.MessageName.error+" : "+message, 'color: #BC263D; font-weight: bold;');
         }
         if(_.isEmpty(props)){
@@ -46,7 +46,7 @@ class AlertYClass{
             if (isDEVELOP)console.log("%c"+this.MessageName.warning+" : "+message, 'color: #FF814B; font-weight: bold;');
         }
         if(props && props.needAlert){
-            alertify.warning(message);
+            Alert.warning(message);
             console.log("%c"+this.MessageName.warning+" : "+message, 'color: #FF814B; font-weight: bold;');
         }
         if(_.isEmpty(props)){
@@ -58,7 +58,7 @@ class AlertYClass{
             if(isDEVELOP) console.info("%c"+this.MessageName.message+" : "+message, 'color: #3598AB; font-weight: bold;');
         }
         if(props && props.needAlert){
-            alertify.message(message);
+            Alert.message(message);
             console.log("%c"+this.MessageName.message+" : "+message, 'color: #3598AB; font-weight: bold;');
         }
         if(_.isEmpty(props)){
@@ -72,7 +72,7 @@ class AlertYClass{
             }
         }
         if(props && props.needAlert){
-            alertify.success(message);
+            Alert.success(message);
             console.log("%c"+this.MessageName.success+" : "+message, 'color: #0C8155; font-weight: bold;');
         }
 

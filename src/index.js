@@ -1,14 +1,18 @@
 'use strict';
+//use to rout https://github.com/mtrpcic/pathjs
 
-import 'semantic-ui-css/semantic.min.js';
-import 'semantic-ui-css/semantic.min.css';
 
-import "devextreme/dist/js/dx.web.js";
 
-import 'devextreme/dist/css/dx.common.css';
-import 'devextreme/dist/css/dx.light.compact.css';
 
-import StaffMODEL from './staff.model.js';
+//import 'semantic-ui-css/semantic.min.js';
+//import 'semantic-ui-css/semantic.min.css';
+
+//import "devextreme/dist/js/dx.web.js";
+
+//import 'devextreme/dist/css/dx.common.css';
+//import 'devextreme/dist/css/dx.light.compact.css';
+
+/*import StaffMODEL from './staff.model.js';
 
 import NavigatorHANDLER,{getNavigatorCB} from './navigator/navigator.handler.js';
 import UserHANDLER from './edit_user/user.handler.js';
@@ -17,18 +21,18 @@ import Main from './main/main.controller.js';
 import NavigatorCtrl from './navigator/main.controller.js';
 import EditUserCtrl from './edit_user/main.controller.js';
 import EventsUserCtrl  from './events/main.controller.js';
-import LogUserCtrl  from './log/main.controller.js';
+import LogUserCtrl  from './log/main.controller.js';*/
 var version = '[AIV]{version}[/AIV]';
 console.log(version);
 
-const AppRouter = Backbone.Router.extend({
+/*const AppRouter = Backbone.Router.extend({
     routes : {
         '' : 'dashboard'
     }
-});
+});*/
 
 let initialize = function() {
-    NavigatorHANDLER.clearState();
+    /*NavigatorHANDLER.clearState();
     UserHANDLER.clearState();
     StaffMODEL.clear();
     StaffMODEL.read();
@@ -63,6 +67,6 @@ let initialize = function() {
             })
         });
     });
-    Backbone.history.start();
+    Backbone.history.start();*/
 };
 new initialize();

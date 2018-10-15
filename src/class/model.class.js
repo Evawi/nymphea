@@ -6,15 +6,26 @@ export default class Model{
     constructor(props){
         this.CTRL = props.ctrl || "";
         this.TARGET;  //используется в формировании url
+        this.METHOD = props.method || "";
+        this.useAlternativeRequestParams = false;
         this.MODEL = {}
         this.requestRead ;
         this.promiseRead ;
     }
+    setUseAlternativeRequestParams(){
+        this.useAlternativeRequestParams = true;  //используются не реквест методы а дополнительные контроллеры
+    }
     baseUrl(){
-        return  window.server_url||"/ai/";
+        return  window.server_url||"/";
+    }
+    setCtrlCtrl(ctrl){ //используется в формировании url
+        this.CTRL = ctrl;
     }
     setTargetCtrl(target){ //используется в формировании url
         this.TARGET = "/" + target;
+    }
+    setMethodCtrl(method){ //используется в формировании url
+        this.METHOD = "/" + method;
     }
     defaultModel(){
         return {}
@@ -29,7 +40,15 @@ export default class Model{
 
     create(data){
         let SELF = this;
-        SELF.requestCreate = LoaderFactory.get(SELF.baseUrl()+SELF.CTRL, data||{}, "POST");
+        let request_method = "POST";
+        let url = SELF.baseUrl()+SELF.CTRL;
+        if(SELF.TARGET) url += SELF.TARGET;
+        if(SELF.METHOD) url += SELF.METHOD;
+        if(SELF.useAlternativeRequestParams){
+            url += "/create";
+            request_method = "POST"
+        }
+        SELF.requestCreate = LoaderFactory.get(url, SELF.toServerProcess(data)||{}, request_method);
         SELF.promiseCreate = new Promise(function(resolve,reject){
             SELF.requestCreate
                 .success(function(data){
@@ -40,7 +59,7 @@ export default class Model{
                     reject(msg)
                 })
 
-        })
+        });
         return SELF.promiseCreate
     }
     getPromiseCreate(){
@@ -49,10 +68,15 @@ export default class Model{
 
     read(data){
         let SELF = this;
+        let request_method = "GET";
         let url = SELF.baseUrl()+SELF.CTRL;
         if(SELF.TARGET) url += SELF.TARGET;
-
-        SELF.requestRead = LoaderFactory.get(url, data||{}, "GET");
+        if(SELF.METHOD) url += SELF.METHOD;
+        if(SELF.useAlternativeRequestParams){
+            url += "/read";
+            request_method = "POST"
+        }
+        SELF.requestRead = LoaderFactory.get(url, data||{}, request_method);
         SELF.promiseRead = new Promise(function(resolve,reject){
             SELF.requestRead
                 .success(function(data){
@@ -72,7 +96,15 @@ export default class Model{
 
     update(data){
         let SELF = this;
-        SELF.requestUpdate = LoaderFactory.get(SELF.baseUrl()+SELF.CTRL, SELF.toServerProcess(data)||{}, "PUT");
+        let request_method = "PUT";
+        let url = SELF.baseUrl()+SELF.CTRL;
+        if(SELF.TARGET) url += SELF.TARGET;
+        if(SELF.METHOD) url += SELF.METHOD;
+        if(SELF.useAlternativeRequestParams){
+            url += "/update";
+            request_method = "POST"
+        }
+        SELF.requestUpdate = LoaderFactory.get(url, SELF.toServerProcess(data)||{}, request_method);
         SELF.promiseUpdate  = new Promise(function(resolve,reject){
             SELF.requestUpdate
                 .success(function(data){
@@ -92,7 +124,15 @@ export default class Model{
 
     delete(data){
         let SELF = this;
-        SELF.requestDelete = LoaderFactory.get(SELF.baseUrl()+SELF.CTRL, data||{} , "DELETE");
+        let request_method = "DELETE";
+        let url = SELF.baseUrl()+SELF.CTRL;
+        if(SELF.TARGET) url += SELF.TARGET;
+        if(SELF.METHOD) url += SELF.METHOD;
+        if(SELF.useAlternativeRequestParams){
+            url += "/delete";
+            request_method = "POST"
+        }
+        SELF.requestDelete = LoaderFactory.get(url, data||{} , request_method);
         SELF.promiseDelete  = new Promise(function(resolve,reject){
             SELF.requestDelete
                 .success(function(request){
