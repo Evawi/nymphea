@@ -2,8 +2,7 @@
   "name": "nymphea",
   "version": "0.0.0",
   "description": "sketch of the next js framework",
-  "author":"https://github.com/Evawi",
-
+  "author": "https://github.com/Evawi",
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
@@ -24,6 +23,8 @@
     "webpack-auto-inject-version": "^1.0.0"
   },
   "dependencies": {
+    "@material-ui/core": "^3.2.2",
+    "@material-ui/icons": "^3.0.1",
     "alertifyjs": "^1.11.0",
     "semantic-ui-css": "^2.2.11"
   }

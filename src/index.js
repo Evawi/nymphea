@@ -1,7 +1,8 @@
 'use strict';
 //use to rout https://github.com/mtrpcic/pathjs
-
-
+// use to base cmp https://material-ui.com/guides/api/
+// <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+// <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 //import 'semantic-ui-css/semantic.min.js';

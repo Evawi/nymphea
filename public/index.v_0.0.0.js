@@ -1,4 +1,4 @@
-// [AIV_SHORT]  Build version: 0.0.0 - Monday, October 15th, 2018, 5:37:54 PM  
+// [AIV_SHORT]  Build version: 0.0.0 - Tuesday, October 16th, 2018, 6:15:45 PM  
  var index =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -73,6 +73,7 @@
 "use strict";
 
 //use to rout https://github.com/mtrpcic/pathjs
+// use to base cmp https://material-ui.com/guides/api/
 
 
 //import 'semantic-ui-css/semantic.min.js';
