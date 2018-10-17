@@ -3,6 +3,7 @@
 // use to base cmp https://material-ui.com/guides/api/
 // <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 // <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+//https://css-tricks.com/building-skeleton-screens-css-custom-properties/ для прелоадера
 
 
 //import 'semantic-ui-css/semantic.min.js';
@@ -23,51 +24,42 @@ import NavigatorCtrl from './navigator/main.controller.js';
 import EditUserCtrl from './edit_user/main.controller.js';
 import EventsUserCtrl  from './events/main.controller.js';
 import LogUserCtrl  from './log/main.controller.js';*/
-var version = '[AIV]{version}[/AIV]';
-console.log(version);
 
-/*const AppRouter = Backbone.Router.extend({
-    routes : {
-        '' : 'dashboard'
+import INDEX  from './class/index.class.js';
+import MODEL  from './class/model.class.js';
+
+import ALERTY  from './alerty/alerty.js';
+/*let nymphea = function() {
+
+    class initializeINDEX extends INDEX{
+        patches(){
+            return {
+                "#/user":"User",
+                "#/dashboard":"Dashboard"
+            }
+        }
+        User(){
+            console.log("s")
+        }
+        Dashboard(){
+            console.log("dashboard")
+        }
     }
-});*/
-
-let initialize = function() {
-    /*NavigatorHANDLER.clearState();
-    UserHANDLER.clearState();
-    StaffMODEL.clear();
-    StaffMODEL.read();
+    const initializeINDEXCTR = new initializeINDEX();
+    initializeINDEXCTR.start();
 
 
-    const MainCtr = new Main();
-    MainCtr.init();
 
-    const ctrNavigator = new NavigatorCtrl();
 
-    const ctrEditUser = new EditUserCtrl();
-    ctrEditUser.init();
-
-    const ctrEventsUser = new EventsUserCtrl();
-    ctrEventsUser.init();
-
-    const ctrLogUser = new LogUserCtrl();
-    ctrLogUser.init();
-
-    MainCtr.getRenderPromise().then(function(){
-        ctrNavigator.init({target:MainCtr.getTargetNavigator()});
-    });
-
-    var appRouter = new AppRouter;
-    appRouter.on('route:dashboard', function() {
-        NavigatorHANDLER.setProps({section:"dashboard"});
-        const dashboard = require.ensure('./dashboard/main.controller.js', function() {
-            MainCtr.getRenderPromise().then(function(){
-                let Ctrldashboard = require('./dashboard/main.controller.js');
-                let screenCtr = new Ctrldashboard.default();
-                screenCtr.init({target:MainCtr.getTargetContent()});
-            })
-        });
-    });
-    Backbone.history.start();*/
 };
-new initialize();
+
+new nymphea();
+*/
+
+class nymphea {
+    ALERTY(){return ALERTY}
+    INDEX(){return INDEX}
+    MODEL(){return MODEL}
+}
+const NYMPHEA = new nymphea()
+export default NYMPHEA

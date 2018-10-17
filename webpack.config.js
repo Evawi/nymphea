@@ -1,5 +1,5 @@
 'use strict';
-//ENW=prod webpack --config webpack.config.js -p сборка в прод
+//ENV=prod webpack --config webpack.config.js -p сборка в прод
 const NODE_ENV = process.env.NODE_ENV || 'develop';
 const path = require('path');
 const webpack = require('webpack');
@@ -13,13 +13,14 @@ console.log(JSON.parse(myversion).version)
 module.exports = {
     context: __dirname +"/src",
     entry:{
-        index:'./index.js'
+        nymphea:'./index.js'
     },
     output: {
         path: __dirname+"/public",//абсолютный путь к директории
         filename: '[name].v_'+ver+'.js',
         publicPath:__dirname+'/dist/public/',
-        library:"[name]"
+        library:"[name]",
+        libraryTarget: 'umd'
     },
     devtool: NODE_ENV == 'develop' ? 'source-map' : false ,  //используется для дебага чтоб показывал как бы все исходники
     watch:NODE_ENV == 'develop',  //автоматическая пересборка
@@ -36,7 +37,6 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             $ : "jquery",
-            Backbone : "backbone",
             _ : "underscore"
         }),
         new WebpackAutoInject(),
