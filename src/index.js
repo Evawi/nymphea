@@ -7,6 +7,14 @@
 
 
 //jquery жрет очень много места
+/*пример подключения
+* new webpack.ProvidePlugin({
+ $ : "jquery",
+ Nymphea : ["../nymphea/nymphea.v_0.0.0.js",'default'], //подключение моих вп модулей
+ _ : "underscore"
+ }),
+ */
+
 
 import ALERTY   from './alerty/alerty.js';
 import ROUTE    from './class/route.class.js';
