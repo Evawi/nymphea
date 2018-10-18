@@ -16,19 +16,21 @@
  */
 
 
-import ALERTY   from './alerty/alerty.js';
-import ROUTE    from './class/route.class.js';
-import MODEL    from './class/model.class.js';
-import HANDLER  from './class/handler.class.js';
+import ALERTY     from './alerty/alerty.js';
+import ROUTE      from './class/route.class.js';
+import MODEL      from './class/model.class.js';
+import HANDLER    from './class/handler.class.js';
+import CONTROLLER from './class/controller.class.js';
 import COMPONENT  from './class/component.class.jsx';
 
 
 class nymphea {
-    ALERTY(){   return ALERTY}
-    ROUTE(){    return ROUTE}
-    MODEL(){    return MODEL}
-    HANDLER(){  return HANDLER}
-    COMPONENT(){return COMPONENT}
+    ALERTY(){    return ALERTY}
+    ROUTE(){     return ROUTE}
+    MODEL(){     return MODEL}
+    HANDLER(){   return HANDLER}
+    CONTROLLER(){return CONTROLLER}
+    COMPONENT(){ return COMPONENT}
 }
 const NYMPHEA = new nymphea()
 export default NYMPHEA
