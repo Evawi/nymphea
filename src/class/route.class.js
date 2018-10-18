@@ -1,11 +1,11 @@
 'use strict';
 
-import ROUTE  from '../route/route.js';
+import ROUTER  from '../route/route.js';
 
 var version = '[AIV]{version}[/AIV]';
 console.log(version);
 
-export default class INDEX{
+export default class ROUTE{
     constructor(props){
         let SELF = this;
         SELF.patches  = SELF.patches.bind(this);
@@ -17,7 +17,7 @@ export default class INDEX{
         let patches =  this.patches();
         _.each(patches,function(node,key){
             if(SELF[node]){
-                ROUTE.map(key).to(function(){
+                ROUTER.map(key).to(function(){
                     SELF[node]()
                 });
             }
@@ -26,6 +26,6 @@ export default class INDEX{
     start(){
         let SELF = this;
         SELF.route();
-        ROUTE.listen();
+        ROUTER.listen();
     }
 }

@@ -10,6 +10,8 @@ var myversion = JSON.stringify(version);
 var ver = JSON.parse(myversion).version;
 console.log(JSON.parse(myversion).version)
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
     context: __dirname +"/src",
     entry:{
@@ -43,7 +45,8 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             children: true,
             async: true,
-        })
+        }),
+        new BundleAnalyzerPlugin()
     ],
 
     resolve:{ //настройка расположения модулей если не найдет по пути entry полезет сюда

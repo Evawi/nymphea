@@ -1,4 +1,5 @@
 'use strict';
+
 var alertify ;
 var notify ;
 try {

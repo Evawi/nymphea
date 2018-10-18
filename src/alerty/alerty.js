@@ -8,7 +8,7 @@ import Alert       from './usedDependencyAlert';
 //needAlert - выводить попап
 class AlertYClass{
     constructor() {
-        const PROJECT = "NIMPHEA CORE"
+        const PROJECT ='[AIV]{name}[/AIV]';
         const PREFIX = "AlertY   "+PROJECT;
 
         this.MessageName = {
@@ -17,7 +17,7 @@ class AlertYClass{
             "success": PREFIX + "-Success ",
             "message": PREFIX + "-Message "
         }
-        alertify.set('notifier','position', 'top-center');
+        //alertify.set('notifier','position', 'top-center');
     }
     error(message,props){
         if(isDEVELOP){
