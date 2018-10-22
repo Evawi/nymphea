@@ -22,15 +22,18 @@ import MODEL      from './class/model.class.js';
 import HANDLER    from './class/handler.class.js';
 import CONTROLLER from './class/controller.class.js';
 import COMPONENT  from './class/component.class.jsx';
+import VALUES     from './values/main.js';
 
+class nymphea {}
 
-class nymphea {
-    ALERTY(){    return ALERTY}
-    ROUTE(){     return ROUTE}
-    MODEL(){     return MODEL}
-    HANDLER(){   return HANDLER}
-    CONTROLLER(){return CONTROLLER}
-    COMPONENT(){ return COMPONENT}
-}
-const NYMPHEA = new nymphea()
+const NYMPHEA = new nymphea();
+
+NYMPHEA.ALERTY      = ALERTY;
+NYMPHEA.ROUTE       = ROUTE;
+NYMPHEA.MODEL       = MODEL;
+NYMPHEA.HANDLER     = HANDLER;
+NYMPHEA.CONTROLLER  = CONTROLLER;
+NYMPHEA.COMPONENT   = COMPONENT;
+NYMPHEA.VALUES      = VALUES;
+
 export default NYMPHEA

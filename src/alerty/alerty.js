@@ -8,8 +8,8 @@ import Alert       from './usedDependencyAlert';
 //needAlert - выводить попап
 class AlertYClass{
     constructor() {
-        const PROJECT ='[AIV]{name}[/AIV]';
-        const PREFIX = "AlertY   "+PROJECT;
+        const PROJECT = window.projectName || "noNameProject";
+        const PREFIX  = "AlertY   "+PROJECT;
 
         this.MessageName = {
             "error":   PREFIX + "-Error   ",
@@ -17,7 +17,6 @@ class AlertYClass{
             "success": PREFIX + "-Success ",
             "message": PREFIX + "-Message "
         }
-        //alertify.set('notifier','position', 'top-center');
     }
     error(message,props){
         if(isDEVELOP){
