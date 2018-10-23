@@ -77,14 +77,9 @@ define([], function() {
 		self.xhr = $.ajax({
 					type : request_method,
 					url : url,
-                    //contentType: "application/json",
-                    //cache:false,
 					data : params,
 					dataType : 'json',
-			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Content-Type': 'application/json'
-			},
+					headers: window.headers,
 					success: function (data, status, xhr) {
 						self._done(data, true, "");
 						self._success(data);

@@ -5,7 +5,7 @@ import {LoaderFactory}  from '../services/LoaderFactory.js';
 export default class Model{
     constructor(props){
         this.CTRL = props.ctrl || "";
-        this.TARGET;  //используется в формировании url
+        this.TARGET = props.target || "";  //используется в формировании url
         this.METHOD = props.method || "";
         this.useAlternativeRequestParams = false;
         this.MODEL = {}

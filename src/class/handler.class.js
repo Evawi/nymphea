@@ -1,5 +1,5 @@
 'use strict';
-import AlertY         from '../alerty/alerty.js';
+import AlertY         from '../alerty/alerty';
 
 export default class Handler{
     constructor(props = {}) {

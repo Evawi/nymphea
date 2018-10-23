@@ -21,8 +21,10 @@ import ROUTE      from './class/route.class.js';
 import MODEL      from './class/model.class.js';
 import HANDLER    from './class/handler.class.js';
 import CONTROLLER from './class/controller.class.js';
-import COMPONENT  from './class/component.class.jsx';
+//import COMPONENT  from './class/component.class.jsx';
 import VALUES     from './values/main.js';
+
+import {LoaderFactory}  from './services/LoaderFactory.js';
 
 class nymphea {}
 
@@ -33,7 +35,9 @@ NYMPHEA.ROUTE       = ROUTE;
 NYMPHEA.MODEL       = MODEL;
 NYMPHEA.HANDLER     = HANDLER;
 NYMPHEA.CONTROLLER  = CONTROLLER;
-NYMPHEA.COMPONENT   = COMPONENT;
+//NYMPHEA.COMPONENT   = COMPONENT;
 NYMPHEA.VALUES      = VALUES;
+
+NYMPHEA.LoaderFactory  = LoaderFactory;
 
 export default NYMPHEA

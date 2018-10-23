@@ -33,14 +33,14 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV:JSON.stringify(NODE_ENV) //чтоб добавилось именно значение
         }), //передает переменные в код из консоли то есть NODE_ENV=release webpack так передастся переменная NODE_ENV и собираться все будет под девелоп (пиши через conEmu)
-        new webpack.ProvidePlugin({ //подключаем jquery
+        /*new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
         }),
         new webpack.ProvidePlugin({
             $ : "jquery",
             _ : "underscore"
-        }),
+        }),*/
         new WebpackAutoInject(),
         new webpack.optimize.CommonsChunkPlugin({
             children: true,
@@ -85,8 +85,19 @@ module.exports = {
         ]
     }
 };
+
+
 if(NODE_ENV == 'prod'){
-    module.exports.plugins.push(    ///Минификация
+    module.exports.plugins = [
+        new webpack.DefinePlugin({
+            NODE_ENV:JSON.stringify(NODE_ENV)
+        }),
+        new WebpackAutoInject(),
+        new webpack.optimize.CommonsChunkPlugin({
+            children: true,
+            async: true,
+        }),
+        new BundleAnalyzerPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
@@ -101,5 +112,21 @@ if(NODE_ENV == 'prod'){
                 unsafe      : true
             }
         })
-    )
+        ]
+   /* module.exports.plugins.push(    ///Минификация
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            comments: false,
+            compress: {
+                sequences     : true,
+                booleans      : true,
+                loops         : true,
+                unused      : true,
+                warnings    : false,
+                //drop_console: true,
+                unsafe      : true
+            }
+        })
+    )*/
 }
