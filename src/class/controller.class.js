@@ -18,12 +18,15 @@ export default class Controller{
             console.log("updateView ")
         })
     }
-    init(){
-
+    init(props){
+        let SELF = this;
+        SELF.ViewHandler.target = props.target;
+        SELF.render();
     }
     getRenderPromise(){
         let SELF = this;
         return SELF.ViewHandler.viewPromise
     }
+
 
 }
