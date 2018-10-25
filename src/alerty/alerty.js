@@ -8,7 +8,7 @@ import Alert       from './usedDependencyAlert';
 //needAlert - выводить попап
 class AlertYClass{
     constructor() {
-        const PROJECT = window.projectName || "noNameProject";
+        const PROJECT = window.project_name || "noNameProject";
         const PREFIX  = "AlertY   "+PROJECT;
 
         this.MessageName = {
