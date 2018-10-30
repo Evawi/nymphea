@@ -9,7 +9,7 @@ try {
     alertify = null
 }
 if(alertify){
-    var cssStr = "../../../node_modules/alertifyjs/build/css/alertify.css"
+    var cssStr = "../../../node_modules/alertifyjs/build/css/alertify.css";
     try{
         require(cssStr);
     }catch(err){}

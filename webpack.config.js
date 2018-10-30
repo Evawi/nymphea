@@ -1,6 +1,6 @@
 'use strict';
 //ENV=prod webpack --config webpack.config.js -p сборка в прод
-const NODE_ENV = process.env.NODE_ENV || 'develop';
+const NODE_ENV = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const webpack = require('webpack');
 var WebpackAutoInject = require('webpack-auto-inject-version');
@@ -8,7 +8,8 @@ var WebpackAutoInject = require('webpack-auto-inject-version');
 var version = require("./package.json");
 var myversion = JSON.stringify(version);
 var ver = JSON.parse(myversion).version;
-console.log(JSON.parse(myversion).version)
+console.log("Nymphea ver ",JSON.parse(myversion).version);
+console.log("Nymphea NODE_ENV ",NODE_ENV);
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -24,8 +25,8 @@ module.exports = {
         library:"[name]",
         libraryTarget: 'umd'
     },
-    devtool: NODE_ENV == 'develop' ? 'source-map' : false ,  //используется для дебага чтоб показывал как бы все исходники
-    watch:NODE_ENV == 'develop',  //автоматическая пересборка
+    devtool: NODE_ENV == 'dev' ? 'source-map' : false ,  //используется для дебага чтоб показывал как бы все исходники
+    watch:NODE_ENV == 'dev',  //автоматическая пересборка
     watchOptions:{
         aggregateTimeout:100 //ожидание после изменения
     },
@@ -33,20 +34,11 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV:JSON.stringify(NODE_ENV) //чтоб добавилось именно значение
         }), //передает переменные в код из консоли то есть NODE_ENV=release webpack так передастся переменная NODE_ENV и собираться все будет под девелоп (пиши через conEmu)
-        /*new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        }),
-        new webpack.ProvidePlugin({
-            $ : "jquery",
-            _ : "underscore"
-        }),*/
         new WebpackAutoInject(),
         new webpack.optimize.CommonsChunkPlugin({
             children: true,
             async: true,
         }),
-        new BundleAnalyzerPlugin()
     ],
 
     resolve:{ //настройка расположения модулей если не найдет по пути entry полезет сюда
@@ -86,17 +78,26 @@ module.exports = {
     }
 };
 
+if(NODE_ENV == 'dev'){
+    module.exports.plugins.push(
+        new webpack.ProvidePlugin({
+            React: 'react',
+            ReactDom: 'react-dom'
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
+        new webpack.ProvidePlugin({
+            $ : "jquery",
+            _ : "underscore"
+        })
+    )
+}
 
 if(NODE_ENV == 'prod'){
-    module.exports.plugins = [
-        new webpack.DefinePlugin({
-            NODE_ENV:JSON.stringify(NODE_ENV)
-        }),
-        new WebpackAutoInject(),
-        new webpack.optimize.CommonsChunkPlugin({
-            children: true,
-            async: true,
-        }),
+    module.exports.plugins.push(
+
         new BundleAnalyzerPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
@@ -112,7 +113,7 @@ if(NODE_ENV == 'prod'){
                 unsafe      : true
             }
         })
-        ]
+    )
    /* module.exports.plugins.push(    ///Минификация
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
