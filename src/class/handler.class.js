@@ -6,6 +6,12 @@ export default class Handler{
         this.CBS = {};
         this.STATE = {};
         this.HandlerName = props.name;
+
+        this.clear     = this.clear.bind(this);
+    }
+    clear(){
+        this.CBS = {};
+        this.STATE = {};
     }
     setState(data){
         if(!data ) {              AlertY.error("I Can't setProps in "+this.HandlerName+", i haven't data"); return;}

@@ -3,7 +3,8 @@
 import {LoaderFactory}  from '../services/LoaderFactory.js';
 
 export default class Model{
-    constructor(props){
+    constructor(props = {}){
+        if(props.parent) this.PARENT = props.parent;
         this.CTRL = props.ctrl || "";
         this.TARGET = props.target || "";  //используется в формировании url
         this.METHOD = props.method || "";

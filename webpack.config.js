@@ -1,5 +1,6 @@
 'use strict';
-//ENV=prod webpack --config webpack.config.js -p сборка в прод
+//NODE_ENV=prod webpack --config webpack.config.js -p сборка в прод
+//NODE_ENV=dev webpack сборка в dev
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const webpack = require('webpack');
