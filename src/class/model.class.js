@@ -9,12 +9,16 @@ export default class Model{
         this.TARGET = props.target || "";  //используется в формировании url
         this.METHOD = props.method || "";
         this.useAlternativeRequestParams = false;
+        this.setUseProcessResolve = ['create','read','update','delete'];
         this.MODEL = {}
         this.requestRead ;
         this.promiseRead ;
     }
     setUseAlternativeRequestParams(){
         this.useAlternativeRequestParams = true;  //используются не реквест методы а дополнительные контроллеры
+    }
+    setUseProcessResolve(arrRequestType){ //указывает типы запросов для которых используется toModelProcess or PARENT.delete на ответ от сервера, если не установлено, toModelProcess &  PARENT.delete используется для всех
+        this.setUseProcessResolve = arrRequestType || [];
     }
     baseUrl(){
         return  window.server_url||"/";
@@ -53,7 +57,7 @@ export default class Model{
         SELF.promiseCreate = new Promise(function(resolve,reject){
             SELF.requestCreate
                 .success(function(data){
-                    SELF.toModelProcess(data);
+                    if(SELF.setUseProcessResolve.indexOf('create')+1) SELF.toModelProcess(data);
                     resolve()
                 })
                 .error(function(msg){
@@ -81,7 +85,7 @@ export default class Model{
         SELF.promiseRead = new Promise(function(resolve,reject){
             SELF.requestRead
                 .success(function(data){
-                    SELF.toModelProcess(data);
+                    if(SELF.setUseProcessResolve.indexOf('read')+1) SELF.toModelProcess(data);
                     resolve()
                 })
                 .error(function(msg){
@@ -109,7 +113,7 @@ export default class Model{
         SELF.promiseUpdate  = new Promise(function(resolve,reject){
             SELF.requestUpdate
                 .success(function(data){
-                    SELF.toModelProcess(data);
+                    if(SELF.setUseProcessResolve.indexOf('update')+1) SELF.toModelProcess(data);
                     resolve()
                 })
                 .error(function(msg){
@@ -137,7 +141,7 @@ export default class Model{
         SELF.promiseDelete  = new Promise(function(resolve,reject){
             SELF.requestDelete
                 .success(function(request){
-                    SELF.PARENT.delete(data.id);
+                    if(SELF.setUseProcessResolve.indexOf('delete')+1) SELF.PARENT.delete(data.id);
                     resolve()
                 })
                 .error(function(msg){
