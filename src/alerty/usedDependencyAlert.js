@@ -1,6 +1,6 @@
 'use strict';
 
-var alertify ;
+/*var alertify ;
 var notify ;
 try {
     alertify =  require('../../../node_modules/alertifyjs/build/alertify.js');
@@ -18,49 +18,78 @@ try{
     notify =  require('../../../node_modules/devextreme/ui/notify.js');
 }catch (err) {
     notify = null
-}
+}*/
 
 class UsedDependencyAlert{
     constructor() {
-        if(notify){
+        let SELF = this;
+        SELF.Notyfer;
+
+        SELF.widgets_Devexpress;
+        SELF.widgets_Alertify;
+        SELF.widgets_Default = true;
+
+        if(window.UI_settings){
+            if(window.UI_settings.Notifer){
+                switch (window.UI_settings.Notifer.type){
+                    case "Alertify":  SELF.widgets_Alertify=true; break;
+                    case "Devexpress":  SELF.widgets_Devexpress=true; break;
+                    default: SELF.widgets_Default = true;
+                }
+            }
+        }
+        console.log(window.UI_settings)
+    }
+    f(){
+        let SELF = this;
+        if(window.UI_settings){
+            if(window.UI_settings.Notifer){
+                SELF.Notyfer = window.UI_settings.Notifer.ensure;
+            }
+        }
+        if(SELF.widgets_Devexpress){
             this.DALAY = 1000
         }
-        if(alertify){
-            alertify.set('notifier','position', 'top-center');
+        if(SELF.widgets_Alertify){
+            SELF.Notyfer.set('notifier','position', 'top-center');
         }
     }
     error(message){
-        if(notify){
-            notify(message, "error", this.DALAY);
-        }else if(alertify){
-            alertify.error(message);
+        this.f();
+        if(this.widgets_Devexpress){
+            this.Notyfer(message, "error", this.DALAY);
+        }else if(this.widgets_Alertify){
+            this.Notyfer.error(message);
         }else{
             alert(message)
         }
     }
     warning(message){
-        if(notify){
-            notify(message, "warning", this.DALAY);
-        }else if(alertify){
-            alertify.warning(message);
+        this.f();
+        if(this.widgets_Devexpress){
+            this.Notyfer(message, "warning", this.DALAY);
+        }else if(this.widgets_Alertify){
+            this.Notyfer.warning(message);
         }else{
             alert(message)
         }
     }
     message(message){
-        if(notify){
-            notify(message, "message", this.DALAY);
-        }else if(alertify){
-            alertify.message(message);
+        this.f();
+        if(this.widgets_Devexpress){
+            this.Notyfer(message, "message", this.DALAY);
+        }else if(this.widgets_Alertify){
+            this.Notyfer.message(message);
         }else{
             alert(message)
         }
     }
     success(message){
-        if(notify){
-            notify(message, "success", this.DALAY);
-        }else if(alertify){
-            alertify.success(message);
+        this.f();
+        if(this.widgets_Devexpress){
+            this.Notyfer(message, "success", this.DALAY);
+        }else if(this.widgets_Alertify){
+            this.Notyfer.success(message);
         }else{
             alert(message)
         }
