@@ -41,7 +41,6 @@ module.exports = {
             async: true,
         }),
     ],
-
     resolve:{ //настройка расположения модулей если не найдет по пути entry полезет сюда
         modules:['node_modules'],
         extensions:['.js', '.jsx','.less','.css','.eot','.woff','.ttf'],

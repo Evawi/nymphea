@@ -18,6 +18,9 @@ class AlertYClass{
             "message": PREFIX + "-Message "
         }
     }
+    reinit(){
+        Alert.reinit()
+    }
     error(message,props){
         if(isDEVELOP){
             console.log("%c ----- DEVELOP LOG start", 'color: #033E6B; font-weight: bold;');

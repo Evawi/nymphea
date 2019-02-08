@@ -23,6 +23,9 @@ try{
 class UsedDependencyAlert{
     constructor() {
         let SELF = this;
+
+        this.reinit = this.reinit.bind(this);
+
         SELF.Notyfer;
 
         SELF.widgets_Devexpress;
@@ -38,7 +41,6 @@ class UsedDependencyAlert{
                 }
             }
         }
-        console.log(window.UI_settings)
     }
     f(){
         let SELF = this;
@@ -52,6 +54,18 @@ class UsedDependencyAlert{
         }
         if(SELF.widgets_Alertify){
             SELF.Notyfer.set('notifier','position', 'top-center');
+        }
+    }
+    reinit(){ //необходимо использовать в случае если невозможно задать параметры в index.html
+        let SELF = this;
+        if(window.UI_settings){
+            if(window.UI_settings.Notifer){
+                switch (window.UI_settings.Notifer.type){
+                    case "Alertify":  SELF.widgets_Alertify=true; break;
+                    case "Devexpress":  SELF.widgets_Devexpress=true; break;
+                    default: SELF.widgets_Default = true;
+                }
+            }
         }
     }
     error(message){

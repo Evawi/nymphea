@@ -24,13 +24,31 @@ export default class Model{
         return  window.server_url||"/";
     }
     setCtrlCtrl(ctrl){ //используется в формировании url
-        this.CTRL = ctrl;
+        if(!ctrl){
+            this.CTRL = "";
+        }else{
+            this.CTRL = ctrl;}
     }
     setTargetCtrl(target){ //используется в формировании url
-        this.TARGET = "/" + target;
+        if(!target){
+            this.TARGET = "";
+        }else{
+            this.TARGET = "/" + target;
+        }
     }
     setMethodCtrl(method){ //используется в формировании url
-        this.METHOD = "/" + method;
+        if(!method){
+            this.METHOD = "";
+        }else{
+            this.METHOD = "/" + method;
+        }
+    }
+    setParameterCtrl(parameter){ //должен быть строкой типо test=1
+        if(!parameter){
+            this.PARAMETER = "";
+        }else{
+            this.PARAMETER = "?" + parameter;
+        }
     }
     defaultModel(){
         return {}
@@ -77,6 +95,7 @@ export default class Model{
         let url = SELF.baseUrl()+SELF.CTRL;
         if(SELF.TARGET) url += SELF.TARGET;
         if(SELF.METHOD) url += SELF.METHOD;
+        if(SELF.PARAMETER) url += SELF.PARAMETER;
         if(SELF.useAlternativeRequestParams){
             url += "/read";
             request_method = "POST"

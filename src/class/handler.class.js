@@ -25,7 +25,7 @@ export default class Handler{
     setCB(key,cb){
         if(!key ) {              AlertY.error("I Can't setUserCB in "+this.HandlerName+", i haven't key"); return;}
         if(!cb ) {               AlertY.error("I Can't setUserCB in "+this.HandlerName+", i haven't cb"); return;}
-        if(this.CBS[key] ) {     AlertY.warning("CB c ключом "+key+" уже существует и был перезаписан", {onlyDev:true}); }
+        //if(this.CBS[key] ) {     AlertY.warning("CB c ключом "+key+" уже существует и был перезаписан", {onlyDev:true}); }
         this.CBS[key] = cb;
     }
     getCB(key){

@@ -79,6 +79,7 @@ define([], function() {
 					url : url,
 					data : params,
 					dataType : 'json',
+					contentType : window.contentType ||'text/plain',
 					headers: window.headers,
 					success: function (data, status, xhr) {
 						self._done(data, true, "");
