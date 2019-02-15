@@ -26,6 +26,8 @@ import VALUES     from './values/main.js';
 
 import {LoaderFactory}  from './services/LoaderFactory.js';
 
+import DevONLY from './devOnly/main.js';
+
 class nymphea {}
 
 const NYMPHEA = new nymphea();
@@ -36,8 +38,9 @@ NYMPHEA.MODEL       = MODEL;
 NYMPHEA.HANDLER     = HANDLER;
 NYMPHEA.CONTROLLER  = CONTROLLER;
 //NYMPHEA.COMPONENT   = COMPONENT;
-NYMPHEA.VALUES      = VALUES;
+NYMPHEA.VALUES      = VALUES; //форматирование и приведение занчений
 
 NYMPHEA.LoaderFactory  = LoaderFactory;
 
+NYMPHEA.DevONLY     = DevONLY;     //возвращаемые параметры для использования только в дев версии
 export default NYMPHEA

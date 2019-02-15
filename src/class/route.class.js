@@ -47,6 +47,11 @@ export default class ROUTE{
     start(){
         let SELF = this;
         SELF.route();
+        ROUTER.rescue(function(){ //если путь не определен приходит сюда
+            SELF.rescue() //должен быть функцией
+        });
+        ROUTER.root(SELF.root()); //домашний url должен быть строкой
         ROUTER.listen(true);
     }
+
 }
