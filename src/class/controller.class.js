@@ -28,5 +28,4 @@ export default class Controller{
         return SELF.ViewHandler.viewPromise
     }
 
-
 }

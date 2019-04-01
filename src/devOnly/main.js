@@ -26,9 +26,11 @@ class devOnly{
     }
     getCSSClass(){
         if(this.STATE.isDev) return  this.props.CSSClass;
-        return ""
+        return this.props.CSSClass+" hidden ";
     }
-
+    log(text){
+        if(this.STATE.isDev) return  console.log("DEV LOG: ",text)
+    }
 }
 
 const devONLY = new devOnly()

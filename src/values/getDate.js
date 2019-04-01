@@ -43,7 +43,7 @@ export default function GetDate(date) {
             case "dd-mm-yyyy": formated = curr_date + "-" + curr_month + "-" + curr_year; break;
             case "yyyy-mm-dd hh:mm:ss": formated = curr_year + "-" + curr_month + "-" + curr_date + " " + hours + ":"+ minutes + ":"+ seconds; break;
             case "dd-mm-yyyy hh:mm:ss": formated = curr_date + "-" + curr_month + "-" + curr_year + " " + hours + ":"+ minutes + ":"+ seconds; break;
-
+            case "hh:mm:ss": formated = hours + ":"+ minutes + ":"+ seconds; break;
         }
         return formated
     };

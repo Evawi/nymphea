@@ -25,6 +25,7 @@ import CONTROLLER from './class/controller.class.js';
 import VALUES     from './values/main.js';
 
 import {LoaderFactory}  from './services/LoaderFactory.js';
+import FileGenerator  from './services/fileGenerator.js';
 
 import DevONLY from './devOnly/main.js';
 
@@ -41,6 +42,7 @@ NYMPHEA.CONTROLLER  = CONTROLLER;
 NYMPHEA.VALUES      = VALUES; //форматирование и приведение занчений
 
 NYMPHEA.LoaderFactory  = LoaderFactory;
+NYMPHEA.FileGenerator  = FileGenerator;
 
 NYMPHEA.DevONLY     = DevONLY;     //возвращаемые параметры для использования только в дев версии
 export default NYMPHEA

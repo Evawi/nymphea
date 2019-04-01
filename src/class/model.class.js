@@ -1,5 +1,5 @@
 'use strict';
-
+//SELF.ETALON - хранит в себе полученные данные, не изменяется в процессе использования. может быть изменена только после сохранения
 import {LoaderFactory}  from '../services/LoaderFactory.js';
 
 export default class Model{
@@ -10,14 +10,17 @@ export default class Model{
         this.METHOD = props.method || "";
         this.useAlternativeRequestParams = false;
         this.useProcessResolve = ['create','read','update','delete'];
-        this.MODEL = {}
+        this.MODEL = {};
+        this.ETALON = {};
         this.requestRead ;
         this.promiseRead ;
+
+        this.getEtalon = this.getEtalon.bind(this);
     }
     setUseAlternativeRequestParams(){
         this.useAlternativeRequestParams = true;  //используются не реквест методы а дополнительные контроллеры
     }
-    setUseProcessResolve(arrRequestType){ //указывает типы запросов для которых используется toModelProcess or PARENT.delete на ответ от сервера, если не установлено, toModelProcess &  PARENT.delete используется для всех
+    setUseProcessResolve(arrRequestType){ //указывает типы запросов для которых используется toModelProcess, toEtalonProcess  or PARENT.delete на ответ от сервера, если не установлено, toModelProcess &  PARENT.delete используется для всех
         this.useProcessResolve = arrRequestType || [];
     }
     baseUrl(){
@@ -58,7 +61,10 @@ export default class Model{
     }
     init(props = {}){
         this.clear();
-        if(props.defaultData)this.MODEL = $.extend(true,this.MODEL, this.toModelProcess(props.defaultData));
+        if(props.defaultData){
+            this.toEtalonProcess(props.defaultData);
+            this.MODEL = $.extend(true,this.MODEL, this.toModelProcess(props.defaultData));
+        }
     }
 
     create(data){
@@ -75,8 +81,11 @@ export default class Model{
         SELF.promiseCreate = new Promise(function(resolve,reject){
             SELF.requestCreate
                 .success(function(data){
-                    if(SELF.useProcessResolve.indexOf('create')+1) SELF.toModelProcess(data);
-                    resolve()
+                    if(SELF.useProcessResolve.indexOf('create')+1) {
+                        SELF.toEtalonProcess(data);
+                        SELF.toModelProcess(data);
+                    }
+                    resolve(data)
                 })
                 .error(function(msg){
                     reject(msg)
@@ -104,14 +113,14 @@ export default class Model{
         SELF.promiseRead = new Promise(function(resolve,reject){
             SELF.requestRead
                 .success(function(data){
+                    SELF.toEtalonProcess(data);
                     if(SELF.useProcessResolve.indexOf('read')+1) SELF.toModelProcess(data);
-                    resolve()
+                    resolve(data)
                 })
                 .error(function(msg){
                     reject(msg)
                 })
-
-        })
+        });
         return SELF.promiseRead
     }
     getPromiseRead(){
@@ -132,8 +141,11 @@ export default class Model{
         SELF.promiseUpdate  = new Promise(function(resolve,reject){
             SELF.requestUpdate
                 .success(function(data){
-                    if(SELF.useProcessResolve.indexOf('update')+1) SELF.toModelProcess(data);
-                    resolve()
+                    if(SELF.useProcessResolve.indexOf('update')+1) {
+                        SELF.toEtalonProcess(data);
+                        SELF.toModelProcess(data);
+                    }
+                    resolve(data)
                 })
                 .error(function(msg){
                     reject(msg)
@@ -160,7 +172,7 @@ export default class Model{
         SELF.promiseDelete  = new Promise(function(resolve,reject){
             SELF.requestDelete
                 .success(function(request){
-                    if(SELF.useProcessResolve.indexOf('delete')+1) SELF.PARENT.delete(data.id);
+                    if(SELF.useProcessResolve.indexOf('delete')+1) SELF.PARENT.delete(data?data.id:SELF.MODEL.id);
                     resolve()
                 })
                 .error(function(msg){
@@ -172,11 +184,40 @@ export default class Model{
     getPromiseDelete(){
         return this.promiseDelete
     }
+    toEtalonProcess(data){
+        let SELF = this;
+        SELF.ETALON = $.extend(true,{}, this.toModelProcess(data));
+    }
     toModelProcess(){}
     toServerProcess(){}
 
-    set(){}
+    set(data,key,noExt,target){
+        if(key || _.isNumber(key)){
+            if(target|| _.isNumber(target)) {
+                if(noExt){
+                    this.MODEL[key][target] =  data; return
+                }
+                this.MODEL[key][target]  =  $.extend(true,this.MODEL[key][target],data); return
+            }
+            if(noExt){
+                this.MODEL[key] =  data; return
+            }
+            this.MODEL[key] =  $.extend(true,this.MODEL[key],data); return
+        }
+        if(noExt) {
+            this.MODEL =  data; return;
+        }
+        this.MODEL = $.extend(true,this.MODEL,data); return;
+    }
     get(){
         return $.extend(true,{}, this.MODEL);
+    }
+    getEtalon(){
+        return $.extend(true,{}, this.ETALON);
+    }
+    isNew(){
+        let SELF = this;
+        if(this.MODEL.isNew) return true
+        return false
     }
 }
