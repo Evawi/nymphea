@@ -23,6 +23,7 @@ import HANDLER    from './class/handler.class.js';
 import CONTROLLER from './class/controller.class.js';
 //import COMPONENT  from './class/component.class.jsx';
 import VALUES     from './values/main.js';
+import CAST       from './cast/main.js';
 
 import {LoaderFactory}  from './services/LoaderFactory.js';
 import FileGenerator  from './services/fileGenerator.js';
@@ -40,6 +41,7 @@ NYMPHEA.HANDLER     = HANDLER;
 NYMPHEA.CONTROLLER  = CONTROLLER;
 //NYMPHEA.COMPONENT   = COMPONENT;
 NYMPHEA.VALUES      = VALUES; //форматирование и приведение занчений
+NYMPHEA.CAST        = CAST; // приведение  виду или к значению
 
 NYMPHEA.LoaderFactory  = LoaderFactory;
 NYMPHEA.FileGenerator  = FileGenerator;
