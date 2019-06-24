@@ -196,18 +196,22 @@ export default class Model{
             if(target|| _.isNumber(target)) {
                 if(noExt){
                     this.MODEL[key][target] =  data; return
+                }else{
+                    this.MODEL[key][target]  =  $.extend(true,this.MODEL[key][target],data); return
                 }
-                this.MODEL[key][target]  =  $.extend(true,this.MODEL[key][target],data); return
             }
             if(noExt){
                 this.MODEL[key] =  data; return
+            }else{
+                this.MODEL[key] =  $.extend(true,this.MODEL[key],data); return
             }
-            this.MODEL[key] =  $.extend(true,this.MODEL[key],data); return
+        }else{
+            if(noExt) {
+                this.MODEL =  data; return;
+            }
+            this.MODEL = $.extend(true,this.MODEL,data); return;
         }
-        if(noExt) {
-            this.MODEL =  data; return;
-        }
-        this.MODEL = $.extend(true,this.MODEL,data); return;
+
     }
     get(){
         return $.extend(true,{}, this.MODEL);

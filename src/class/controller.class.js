@@ -9,7 +9,8 @@ export default class Controller{
 
         SELF.DataHandler = {};
         SELF.ViewHandler = {
-            viewPromise:null
+            viewPromise:null,
+            getRefs:null
         };
     }
     updateView(){
@@ -22,6 +23,10 @@ export default class Controller{
         let SELF = this;
         SELF.ViewHandler.target = props.target;
         SELF.render();
+    }
+    getTargetContent(){
+        let SELF = this;
+        return SELF.ViewHandler.getRefs()
     }
     getRenderPromise(){
         let SELF = this;
