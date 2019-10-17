@@ -73,7 +73,6 @@ define([], function() {
 				item.apply(self, args)
 			})
 		}
-
 		self.xhr = $.ajax({
 					type : request_method,
 					url : url,
@@ -86,6 +85,7 @@ define([], function() {
 						self._success(data);
 					},
 					error:function(xhr, status, error) {
+						if(xhr.aborted) return;
 						self._done(null, false, error);
 						self._error(error,xhr.responseText);
 					}

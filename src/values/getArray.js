@@ -19,4 +19,27 @@ export default function GetType(newData) {
         }
         return returnedArr;
     }
+    this.type = function(type){
+        let returnedArr = this.newData;
+        switch(type){
+            case "INT": returnedArr = parseInt(); break;
+        }
+        return returnedArr;
+    }
+    function parseInt(){
+       let parsed = [];
+       for (var i = 0; i <  this.newData.length; i++) {
+           let el =  this.newData[i];
+            if(Number.isInteger(el)){
+                parsed.push(el)
+            }else if(typeof el == 'number'){
+                parsed.push(parseInt(el))
+            }else if(typeof el == 'string'){
+                parsed.push(el - 0)
+            } else {
+                parsed.push(null)
+            }
+       }
+       return parsed;
+    }
 }

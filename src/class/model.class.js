@@ -219,6 +219,13 @@ export default class Model{
     getEtalon(){
         return $.extend(true,{}, this.ETALON);
     }
+    getJSON(){
+        let mdlData = {};
+        _.each(this.MODEL,function(node,key){
+            mdlData[key] = node.get()
+        })
+        return $.extend(true,{}, mdlData);
+    }
     isNew(){
         let SELF = this;
         if(this.MODEL.isNew) return true

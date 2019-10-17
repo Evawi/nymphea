@@ -4,7 +4,7 @@
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const webpack = require('webpack');
-var WebpackAutoInject = require('webpack-auto-inject-version');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 var version = require("./package.json");
 var myversion = JSON.stringify(version);
@@ -14,6 +14,91 @@ console.log("Nymphea NODE_ENV ",NODE_ENV);
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+var config = {
+    entry: {
+        nymphea: [
+            './src/index.js'
+        ]
+    },
+    output: {
+        path: __dirname+"/public",
+        filename: '[name].v_'+ver+'.js',
+        publicPath:__dirname+'/dist/public/',
+        library:"[name]",
+        libraryTarget: 'umd'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$|\.wav$|\.mp3$/, loader: "file-loader"}
+        ]
+    },
+};
+module.exports = (env, argv) => {
+
+    if (argv.mode === 'development') {
+        config.devtool = 'source-map';
+        config.watch = true;
+        config.watchOptions = {
+            aggregateTimeout:100
+        };
+        config.optimization = {
+            splitChunks: {
+                cacheGroups: {
+                    default: {
+                        minChunks: 2,
+                        priority: -20,
+                        reuseExistingChunk: true
+                    }
+                }
+            }
+        };
+        config.plugins=[
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: "jquery"
+            }),
+            new webpack.ProvidePlugin({
+                $ : "jquery",
+                _ : "underscore"
+            }),
+        ]
+    }
+
+    if (argv.mode === 'production') {
+        config.optimization = {
+            splitChunks: {
+                cacheGroups: {
+                    default: {
+                        minChunks: 2,
+                        priority: -20,
+                        reuseExistingChunk: true
+                    }
+                }
+            },
+            minimizer: [
+                new UglifyJsPlugin({
+                    test: /\.js(\?.*)?$/i,
+                }),
+            ]
+        };
+        config.plugins=[
+            new BundleAnalyzerPlugin()
+        ]
+    }
+
+    return config;
+};
+/*
 module.exports = {
     context: __dirname +"/src",
     entry:{
@@ -114,20 +199,5 @@ if(NODE_ENV == 'prod'){
             }
         })
     )
-   /* module.exports.plugins.push(    ///Минификация
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            comments: false,
-            compress: {
-                sequences     : true,
-                booleans      : true,
-                loops         : true,
-                unused      : true,
-                warnings    : false,
-                //drop_console: true,
-                unsafe      : true
-            }
-        })
-    )*/
 }
+ */
