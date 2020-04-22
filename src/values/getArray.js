@@ -41,13 +41,13 @@ export default function GetType(newData) {
         for (var i = 0; i < this.newData.length; i++) {
             let el = this.newData[i];
             if (Number.isInteger(el)) {
-                parsed.push(el)
+                parsed.push(el);
             } else if (typeof el == 'number') {
-                parsed.push(parseInt(el))
+                parsed.push(parseInt(el));
             } else if (typeof el == 'string') {
-                parsed.push(el - 0)
+                parsed.push(el - 0);
             } else {
-                parsed.push(null)
+                parsed.push(null);
             }
         }
         return parsed;
