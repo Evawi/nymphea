@@ -1,3 +1,4 @@
 node_modules/
 .idea/
-test_d_k
+src/values/test_d_k.js
+src/values/test_d_k.html
