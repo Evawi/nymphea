@@ -1,11 +1,14 @@
 'use strict';
-import ALERTY from '../alerty/alerty.js';
+//import ALERTY from '../alerty/alerty.js';
 
 export default function GetType(newData) {
-    if (!(this instanceof GetType)) return new GetType(newData);
-    let errorAlert = function (text, orData) {
-        ALERTY.error("Data type error! " + text + " instead of ARRAY! Now use ", orData);
-    };
+    if (!(this instanceof GetType)) {
+        return new GetType(newData);
+    }
+
+    // let errorAlert = function (text, orData) {
+    //     ALERTY.error("Data type error! " + text + " instead of ARRAY! Now use ", orData);
+    // };
 
     this.newData = newData;
     this.or = function (orData = []) {
