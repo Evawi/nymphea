@@ -1,35 +1,73 @@
 'use strict';
 
-// В общих чертах. Почти псевдокод. Тут нужно еще много доделать и уточнить. 
+// return:
+// nonCorrectValue: 'null', 'undefined', 'NaN', 'Infinity'
+// primitivType:    'boolean', 'string', 'number'
+// objectType:      'object', 'array', 'function'
+function typeIdent(value) {
+    let type = typeof (value);
 
-// 1. Проверка значения на корректность.null, undefined, NaN, Infinity,
-function isEmpty(value, exception){
-    if(value == null || value == undefined){
-        return true;
+    if (type == 'number') {
+        if (value == Infinity) {
+            type = 'Infinity';
+        } else
+        if (isNaN(value)) {
+            type = 'NaN';
+        }
+    } else
+
+    if (type == 'object') {
+        if (value == null) {
+            type = 'null';
+        } else
+        if (Array.isArray(value)) {
+            type = 'array';
+        }
     }
-    else
-    if(exception == true && value == ""){
-        return true;
-    }
-    return false;
+
+    return type;
 }
 
-// 2. Во всех остальных случаях данные можно представить в виде массива
-// с хотя бы одним значением.
+// Object -> array
+function objToArr(obj) {
+    let ret = [];
+    for (let item in obj) {
+        let el = obj[item];
+
+        if (typeIdent(el) == 'object') {
+            ret.push(objToArr(el));
+        } else {
+            ret.push(el);
+        }
+    }
+    return ret;
+}
+
+// flat array
+function flattenDeep(arr1) {
+    return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val), []);
+}
+
+// Any type -> flat array
 function getArr(value) {
-    let returnedArr = [];
 
-    if(isEmpty(value,false)){
-        return [];
+    switch(typeIdent(value)){
+        case('null'|| 'undefined' || 'NaN' || 'Infinity'):
+            return "nonCorrectValue";
+        case('string'):
+            return Array.from(value);
+        case('boolean' || 'number'):
+            return Array.of(value);
+        case('function'):
+            return [value];        
+        case('object'):
+            return flattenDeep(objToArr(value));
+        case('array'):
+            return flattenDeep(value);
     }
-    
-    for(var key in value){
-        returnedArr.push(value[key]);
-    }
-    return returnedArr;
+    return [];
 }
 
-// Проверка кода
-let arr = {q:1,w:2,e:function(){}};//[1,2,3];//"123";//['1','2','3'];//
-
+//------------------------------------------------
+let arr = {z:{a:9,b:{r:5,t:7}},q:6,w:3}; 
 console.log(getArr(arr));
