@@ -1,4 +1,5 @@
 node_modules/
 .idea/
 src/values/test_d_k.js
+src/values/test_d_k1.js
 src/values/test_d_k.html
