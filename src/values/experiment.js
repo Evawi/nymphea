@@ -13,6 +13,9 @@ function typeIdent(value) {
         } else
         if (isNaN(value)) {
             type = 'NaN';
+        } else
+        if (Number.isInteger(value)){
+            type = 'int';
         }
     } else
 
