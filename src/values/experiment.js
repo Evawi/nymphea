@@ -68,6 +68,47 @@ function getArr(value) {
     return [];
 }
 
+// Type array transformation
+function oneTypeArr(arr, type, test) {
+    if(test){
+        let tipedArr = arr.find(function(item) {
+            return (typeIdent(item) != type);
+        });
+        return Boolean(!tipedArr); 
+    }
+    else
+    {
+        let tipedArr = arr.map(function (item) {
+            if (typeIdent(item) != type) {
+                if (type == 'string') {
+                    item += "";
+                }
+
+                if (type == 'number') {
+                    item = +item;
+                }
+
+                if (type == 'bool') {
+                    item = Boolean(item);
+                }
+
+                if (type == 'int') {
+                    item = parseInt(item);
+                }  
+
+                if (type == 'data') {
+                    if(typeof(item) == 'string'){
+                        item = Date.parse(item);
+                    }
+                }
+            }
+            return item;
+        });
+        return tipedArr;
+    }
+}
+
+
 //------------------------------------------------
 let arr = {z:{a:9,b:{r:5,t:7}},q:6,w:3}; 
 console.log(getArr(arr));
