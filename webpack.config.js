@@ -19,7 +19,7 @@ var config = {
         nymphea: [
             './src/index.js'
         ]
-    },
+    }, 
     output: {
         path: __dirname+"/../public",
         filename: '[name].v_'+ver+'.js',
