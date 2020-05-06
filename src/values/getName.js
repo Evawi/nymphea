@@ -1,5 +1,4 @@
 'use strict';
-import ALERTY     from '../alerty/alerty.js';
 
 export default function searchNamePrefix(prefix, nameArray){
     let num = 0;
